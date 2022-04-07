@@ -8,14 +8,18 @@
 </head>
 <body>
   <script src="https://unpkg.com/vue@3"></script>
-  <div id="app">{{ text }}</div>
+  <div id="app">
+    
+  </div>
   <script>
     const vm = Vue.createApp({
       data() {
         return {
-          text: 'Hello vue!'
+          attr: "src",
+          img: "https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ"
         }
-      }
+      },
+      template: `<img v-bind:[attr]="img" v-bind:alt ="img"/>`
     }).mount("#app");
     console.log(vm)
   </script>
