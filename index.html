@@ -15,11 +15,26 @@
     const vm = Vue.createApp({
       data() {
         return {
-          attr: "src",
-          img: "https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ"
+          counter:0
+        };
+      },
+      methods: {
+        increment() {
+          this.counter++;
+        },
+        decrement() {
+          this.counter--;
+        },
+        restart() {
+          this.counter = 0;
         }
       },
-      template: `<img v-bind:[attr]="img" v-bind:alt ="img"/>`
+      template: `<div>
+          <h1>{{counter}}</h1>
+          <button v-on:click="increment">incrementar</button>
+          <button v-on:click="decrement">decrementar</button>
+          <button v-on:click="restart">restart</button>
+        </div>`
     }).mount("#app");
     console.log(vm)
   </script>
