@@ -27,8 +27,7 @@
           <p>{{text}}</p>
           <input
             type="text"
-            @input="input"
-            :value="text">
+            v-model="text">
           </input>
         </div>`
     }).mount("#app");
