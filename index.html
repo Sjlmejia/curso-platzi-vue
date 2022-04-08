@@ -43,22 +43,24 @@
     const vm = Vue.createApp({
       data() {
         return {
-          text: "puerta cerrada",
-          open:false
+          text: "Accede a tu cuenta",
+          open:false,
+          username: "",
         };
       },
       watch :{
         open(value){
           if(value) {
-            this.text = "puerta abierta";
+            this.text = "Cierra Sesion";
           } else {
-            this.text = "puerta cerrada";
+            this.username = "";
+            this.text = "Accede a tu cuenta";
           }
         }
       },
       computed: {
         label() {
-          return this.open ? "Cerrar" : "Abrir";
+          return this.open ? "Salir" : "Acceder";
         },
         styles() {
           return this.open ? ['open'] : ['closed'];
@@ -66,8 +68,16 @@
       },
       template: `<div class="container" :class="styles">
         <h2>{{text}}</h2>
+        <div v-if="open">
+          <p>Hola {{username}}</p>
+        </div>
+        <div v-else>
+          <label>Username</label>
+          <input type="text" v-model="username"/>
+        </div>
         <button @click="open = !open" >
-          {{ open ? 'Cerrar' : 'Abrir' }}
+          <div v-if="!open">Acceder</div>
+          <div v-else>Salir</div>
         </button>
         </div>
         `
