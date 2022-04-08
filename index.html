@@ -32,7 +32,7 @@
         padding: 8px 24px;
         border-radius: 12px;
     }
-    .close {
+    .closed {
         background-color: #eca1a6;
     }
     .open {
@@ -44,29 +44,27 @@
       data() {
         return {
           text: "puerta cerrada",
-          open:false,
-          styles: {
-            backgroundColor: '#eca1a6',
-          }
+          open:false
         };
       },
       watch :{
         open(value){
           if(value) {
             this.text = "puerta abierta";
-            this.styles.backgroundColor = '#b5e7a0';
           } else {
             this.text = "puerta cerrada";
-            this.styles.backgroundColor = '#eca1a6';
           }
         }
       },
       computed: {
         label() {
           return this.open ? "Cerrar" : "Abrir";
+        },
+        styles() {
+          return this.open ? ['open'] : ['closed'];
         }
       },
-      template: `<div class="container" :style="styles">
+      template: `<div class="container" :class="styles">
         <h2>{{text}}</h2>
         <button @click="open = !open" >
           {{ open ? 'Cerrar' : 'Abrir' }}
