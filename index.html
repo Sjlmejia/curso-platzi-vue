@@ -113,6 +113,9 @@
           this.title = "";
           this.body = "";
         },
+        removePost(id){
+          this.posts = this.posts.filter(post => post.id !== id);
+        },
       },
       template: `<div class="container" :class="styles">
         <h2>{{text}}</h2>
@@ -122,6 +125,7 @@
             <div v-for="item in posts" :key="item.id" class="item">
               <div class="title">{{item.title}}</div>
               <p>{{item.body}}</p>
+              <button @click="removePost(item.id)">Remover  post</button>
             </div>  
           </div>
 
