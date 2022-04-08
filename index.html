@@ -15,25 +15,21 @@
     const vm = Vue.createApp({
       data() {
         return {
-          counter:0
+          text:"Hola vue"
         };
       },
       methods: {
-        increment() {
-          this.counter++;
-        },
-        decrement() {
-          this.counter--;
-        },
-        restart() {
-          this.counter = 0;
+        input(e) {
+          this.text = e.target.value;
         }
       },
       template: `<div>
-          <h1>{{counter}}</h1>
-          <button v-on:click="increment">incrementar</button>
-          <button v-on:click="decrement">decrementar</button>
-          <button v-on:click="restart">restart</button>
+          <p>{{text}}</p>
+          <input
+            type="text"
+            @input="input"
+            :value="text">
+          </input>
         </div>`
     }).mount("#app");
     console.log(vm)
