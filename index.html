@@ -11,153 +11,38 @@
   <div id="app">
     
   </div>
-  <style>
-    html, body {
-        height: 100vh;
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-    #app, .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-    }
-    button {
-        margin-top: 24px;
-        border: none;
-        background-color: white;
-        padding: 8px 24px;
-        border-radius: 12px;
-    }
-    .closed {
-        background-color: #eca1a6;
-    }
-    .open {
-        background-color: #b5e7a0;
-    }
-    .list {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-    }
-    .item {
-      margin-top: 15px;
-      width: 100%;
-      flex-direction: column;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .title {
-      font-size: 24px;
-      font-weight: bold;
-    }
-</style>
   <script>
     const app = Vue.createApp({
-      data() {
+      data(){
         return {
-          text: "Accede a tu cuenta",
-          open:false,
-          username: "",
-          title: "",
-          body:"",
-          posts: [{
-            title: "Titulo 1",
-            body: "Contenido 1",
-            id: 1
-          },
-          {
-            title: "Titulo 2",
-            body: "Contenido 2",
-            id: 2
-          },
-          {
-            title: "Titulo 3",
-            body: "Contenido 3",
-            id: 3
-          }]
-        };
-      },
-      watch :{
-        open(value){
-          if(value) {
-            this.text = "Cierra Sesion";
-          } else {
-            this.username = "";
-            this.text = "Accede a tu cuenta";
-          }
+          title: 'hola mundo2'
         }
       },
-      computed: {
-        label() {
-          return this.open ? "Salir" : "Acceder";
-        },
-        styles() {
-          return this.open ? ['open'] : ['closed'];
-        }
-      },
-      methods: {
-        addPost(){
-          this.posts.push({
-            title: this.title,
-            body: this.body,
-            id: this.posts.length + 1
-          });
-          this.title = "";
-          this.body = "";
-        },
-        removePost(id){
-          this.posts = this.posts.filter(post => post.id !== id);
-        },
-      },
-      template: `<div class="container" :class="styles">
-        <h2>{{text}}</h2>
-        <div v-if="open">
-          <p>Hola {{username}}</p>
-          <div class="list">
-            <item
-              v-for="(item , i) in posts"
-              :key="i"
-              :post="item"
-              :removePost="removePost"
-            /> 
-          </div>
-
-          <div>
-            <input type="text" v-model="title" placeholder="title"/>
-            <input type="text-area" v-model="body" placeholder="Description"/>
-            <button @click="addPost">Agregar</button>
-          </div>
+      template: `
+        <div>
+          <v-layout>
+            <template v-slot:header>
+              Titulo
+            </template>
+            <template v-slot:content>
+              contenido
+            </template>
+          </v-layout>
         </div>
-        <div v-else>
-          <div>Username</div>
-          <input type="text" v-model="username"/>
-        </div>
-        <button @click="open = !open" >
-          <div v-if="!open">Acceder</div>
-          <div v-else>Salir</div>
-        </button>
-        </div>
-        `
+      `
     });
-
-    app.component("item", {
-      props:["post", "removePost"],
-      template :`
-      <div class="item">
-        <div class="title">{{post.title}}</div>
-        <p>{{post.body}}</p>
-        <button @click="removePost(post.id)">Remover  post</button>
-      </div>`
-    });
-    const vm = app.mount("#app");
+    app.component("v-layout", {
+      props:["title"],
+      template: `
+        <header>
+          <slot name="header"></slot>
+        </header>
+        <div>
+          <slot name="content"></slot>
+        </div>
+      `
+    })
+    vm = app.mount("#app");
     console.log(vm)
   </script>
 </body>
