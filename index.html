@@ -15,23 +15,35 @@
     const app = Vue.createApp({
       data() {
         return {
-          items: ['uno', 'dos', 'tres',,]
+          items: ['uno', 'dos', 'tres']
+        }
+      },
+      methods: {
+        remove(item){
+          this.items = this.items.filter((el, index)=> index!==item);
         }
       },
       template: `
         <ul>
-          <v-item v-for="item in items" v-bind:text="item"></v-item>
+          <v-item
+            v-for="(item, i) in items"
+            v-bind:text="item"
+            v-on:remove="remove(i)">
+          />
         </ul>
       `
     });
 
     app.component("v-item", {
       props:{
-        text: {
-          default: "texto vacio"
+        text: String
+      },
+      methods: {
+        updateItems(){
+          this.$emit("remove")
         }
       },
-      template: `<li>{{text}}</li>`
+      template: `<li v-on:click="updateItems">{{text}}</li>`
     });
     vm = app.mount("#app");
     console.log(vm)
