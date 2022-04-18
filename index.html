@@ -15,31 +15,17 @@
     const app = Vue.createApp({
       data(){
         return {
-          text: "hola tenderito"
-        }
-      },
-      provide() {
-        return {
-          otroTexto: this.text
+          text: "hola vue"
         }
       },
       template: `
-          <div>{{text}}</div>
-          <otro />
+          <v-button :label="text"></v-buttom>
       `
     });
 
-    app.component("otro", {
-      template: `
-      <tercer />
-      `
-    });
-
-    app.component("tercer", {
-      inject:["otroTexto"],
-      template: `
-      <div>{{otroTexto}}</div>
-      `
+    app.component("v-button", {
+      props:["label"],
+      template: `<button>{{label}}</button>`
     });
     vm = app.mount("#app");
     console.log(vm)
